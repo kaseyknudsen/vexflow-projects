@@ -2,22 +2,25 @@
 
 import Vex from "vexflow";
 import { useEffect, useRef } from "react";
-import AddNotes from "./AddNotes";
-import noteArray from "./noteData";
-import { addTickables } from "./addTickables";
-import AddAudio from "../audio/AddAudio";
+import AddNotes from "../components/addNotes";
+import { noteArray } from "../components/noteData";
+import { addTickables } from "../components/addTickables";
+
 const { Renderer, Stave } = Vex.Flow;
 
-const renderNotes = ({
-  renderWidth,
-  renderHeight,
-  staveX,
-  staveY,
-  staveWidth,
-  clef,
-  timeSignature,
-}) => {
+const renderNotes = () => {
   const notationRef = useRef(null);
+  const noteArray = [
+    "e/4",
+    "f/4",
+    "g/4",
+    "a/4",
+    "b/4",
+    "c/5",
+    "d/5",
+    "e/5",
+    "f/5",
+  ];
 
   useEffect(() => {
     if (notationRef.current) {
@@ -25,34 +28,24 @@ const renderNotes = ({
         notationRef.current.id,
         Renderer.Backends.SVG
       );
-      renderer.resize(renderWidth, renderHeight);
+      renderer.resize(400, 400);
       const context = renderer.getContext();
-      const stave = new Stave(staveX, staveY, staveWidth)
-        .addClef(clef)
-        // .addTimeSignature(noteArray.length.toString() + "/4")
+      const stave = new Stave(50, 40, 200)
+        .addClef("treble")
+        .addTimeSignature("4/4")
         .setContext(context)
         .draw();
-      const notes = AddNotes(noteArray);
-      addTickables(noteArray, notes, context, stave);
 
       return () => {
         notationRef.current.innerHTML = "";
       };
     }
-  }, [
-    renderWidth,
-    renderHeight,
-    staveX,
-    staveY,
-    staveWidth,
-    clef,
-    timeSignature,
-  ]);
+  }, []);
 
   return (
-    <>
+    <div className="flex justify-center py-60">
       <div ref={notationRef} id="notation-root"></div>
-    </>
+    </div>
   );
 };
 
