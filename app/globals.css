@@ -5,3 +5,7 @@
 body {
   background-color: lightgray;
 }
+
+.custom-background-img {
+  background-image: url("../public/staffPaperImg.jpg");
+}
