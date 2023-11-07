@@ -37,7 +37,9 @@ const renderNotes = () => {
         .draw();
 
       return () => {
-        notationRef.current.innerHTML = "";
+        if (notationRef.current) {
+          notationRef.current.innerHTML = "";
+        }
       };
     }
   }, []);
