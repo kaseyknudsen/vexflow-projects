@@ -22,7 +22,7 @@ const renderNotes = () => {
     // "e/5",
   ];
 
-  const numStaves = 4;
+  const numStaves = 3;
   let y = 20;
   useEffect(() => {
     if (notationRef.current) {
@@ -39,10 +39,11 @@ const renderNotes = () => {
             staveXposition: 50,
             staveYposition: y,
             staveWidth: 300,
-            clef: "treble",
-            timeSig: "4/4",
             context: context,
-          });
+          })
+            .addTimeSignature("4/4")
+            .addClef("treble")
+            .draw();
           const voice = new Voice({ num_beats: 4, beat_value: 4 });
           voice.addTickables(
             noteArray.map((note, idx) => {
@@ -56,8 +57,6 @@ const renderNotes = () => {
             staveXposition: 50,
             staveYposition: y,
             staveWidth: 300,
-            clef: "treble",
-            timeSig: "4/4",
             context: context,
           });
         }
@@ -70,7 +69,7 @@ const renderNotes = () => {
         }
       };
     }
-  }, []);
+  }, [numStaves]);
 
   return (
     <div className="flex justify-center">

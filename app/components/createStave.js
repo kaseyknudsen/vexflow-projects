@@ -6,13 +6,11 @@ const createStave = ({
   staveXposition,
   staveYposition,
   staveWidth,
-  clef,
-  timeSig,
+  // clef,
+  // timeSig,
   context,
 }) => {
   const stave = new Stave(staveXposition, staveYposition, staveWidth)
-    .addClef(clef || null)
-    .addTimeSignature(timeSig)
     .setContext(context)
     .draw();
   return stave;
