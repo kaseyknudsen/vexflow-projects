@@ -7,7 +7,7 @@ import createStave from "../components/createStave";
 import { noteArray } from "../components/noteData";
 import { addTickables } from "../components/addTickables";
 
-const { Renderer, Stave, Voice, Formatter } = Vex.Flow;
+const { Renderer, Voice, Formatter } = Vex.Flow;
 
 const renderNotes = () => {
   const notationRef = useRef(null);
@@ -22,7 +22,7 @@ const renderNotes = () => {
     // "e/5",
   ];
 
-  const numStaves = 3;
+  const numStaves = 4;
   let y = 20;
   useEffect(() => {
     if (notationRef.current) {
@@ -43,6 +43,14 @@ const renderNotes = () => {
             timeSig: "4/4",
             context: context,
           });
+          const voice = new Voice({ num_beats: 4, beat_value: 4 });
+          voice.addTickables(
+            noteArray.map((note, idx) => {
+              return new StaveNote({ keys: [note], duration: "q" });
+            })
+          );
+          new Formatter().joinVoices([voice]).format([voice], 250);
+          voice.draw(context, stave);
         } else {
           let stave = createStave({
             staveXposition: 50,
@@ -56,17 +64,6 @@ const renderNotes = () => {
         y += 80;
       }
 
-      const voice = new Voice({ num_beats: 4, beat_value: 4 });
-
-      voice.addTickables(
-        noteArray.map((note, idx) => {
-          return new StaveNote({ keys: [note], duration: "q" });
-        })
-      );
-
-      new Formatter().joinVoices([voice]).format([voice], 250);
-      // voice.draw(context, stave);
-
       return () => {
         if (notationRef.current) {
           notationRef.current.innerHTML = "";
@@ -76,7 +73,7 @@ const renderNotes = () => {
   }, []);
 
   return (
-    <div className="flex justify-center py-60">
+    <div className="flex justify-center">
       <div ref={notationRef} id="notation-root"></div>
     </div>
   );
