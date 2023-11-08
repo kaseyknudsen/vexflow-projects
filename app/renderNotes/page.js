@@ -2,7 +2,7 @@
 
 import Vex from "vexflow";
 import { useEffect, useRef } from "react";
-import AddNotes from "../components/addNotes";
+import AddNotes from "../components/addNotesToStaff";
 import { noteArray } from "../components/noteData";
 import { addTickables } from "../components/addTickables";
 

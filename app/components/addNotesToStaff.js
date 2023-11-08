@@ -4,7 +4,7 @@ import Vex from "vexflow";
 
 const { StaveNote, Accidental } = Vex.Flow;
 
-export const AddNotes = (noteArray) => {
+export const AddNotesToStaff = (noteArray) => {
   return noteArray.map((note, idx) => {
     const newNote = new StaveNote({
       keys: note.keys,
@@ -18,4 +18,4 @@ export const AddNotes = (noteArray) => {
   });
 };
 
-export default AddNotes;
+export default AddNotesToStaff;

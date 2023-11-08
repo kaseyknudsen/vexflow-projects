@@ -5,29 +5,24 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 const Navbar = () => {
   return (
-    <div className="flex fixed left-0 top-0 w-full z-[3] ease-in duration-300 text-black">
+    <div className="text-center sm:flex fixed left-0 top-0 w-full z-[3] ease-in duration-300 text-black">
       <Link href="/">
-        <h1 className="xs:text-center sm:text-left text-2xl sm:text-3xl p-4 ">
-          Vexflow Projects
-        </h1>
+        <h1 className="text-2xl sm:text-3xl p-4">Vexflow Projects</h1>
       </Link>
-      <div className="max-w-[1240px] flex">
-        {" "}
-        <ul className="text-1xl py-40 sm:py-1 sm:flex ">
-          <li className="p-4">
-            <Link href="/renderNotes">Render Notes</Link>
-          </li>
-          <li className="p-4">
-            <Link href="/addNotesToStaff">Add Notes to a Staff</Link>
-          </li>
-          <li className="p-4">
-            <Link href="/addAudioToNotes">Add Audio to Notes</Link>
-          </li>
-          <li className="p-4">
-            <Link href="/addAccidentalsToNotes">Add Accidentals</Link>
-          </li>
-        </ul>
-      </div>
+      <ul className="sm:text-1xl py-20 sm:py-1 sm:flex">
+        <li className="p-4">
+          <Link href="/renderNotes">Render Notes</Link>
+        </li>
+        <li className="p-4">
+          <Link href="/addNotesToStaff">Add Notes to a Staff</Link>
+        </li>
+        <li className="p-4">
+          <Link href="/addAudioToNotes">Add Audio to Notes</Link>
+        </li>
+        <li className="p-4">
+          <Link href="/addAccidentalsToNotes">Add Accidentals</Link>
+        </li>
+      </ul>
     </div>
   );
 };
