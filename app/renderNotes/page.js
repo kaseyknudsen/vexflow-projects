@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import AddNotes from "../components/addNotesToStaff";
 import createStave from "../components/createStave";
 import { noteArray } from "../components/noteData";
-import { addTickables } from "../components/addTickables";
+import { addTickablesComponent } from "../components/addTickablesComponent";
 
 const { Renderer, Voice, Formatter } = Vex.Flow;
 
@@ -22,45 +22,47 @@ const renderNotes = () => {
     // "e/5",
   ];
 
-  const numStaves = 3;
-  let y = 20;
+  const numStaves = 2;
+  let y = 100;
+  let x = 50;
+  let globalStaveWidth = 250;
   useEffect(() => {
     if (notationRef.current) {
       const renderer = new Renderer(
         notationRef.current.id,
         Renderer.Backends.SVG
       );
-      renderer.resize(800, 1200);
+      renderer.resize(1200, 1200);
       const context = renderer.getContext();
 
       for (let i = 0; i < numStaves; i++) {
+        let staveXPosition = i === 0 ? x : x + globalStaveWidth * i;
         if (i === 0) {
           let stave = createStave({
-            staveXposition: 50,
+            staveXposition: staveXPosition,
             staveYposition: y,
-            staveWidth: 300,
+            staveWidth: globalStaveWidth,
             context: context,
           })
             .addTimeSignature("4/4")
             .addClef("treble")
             .draw();
+
           const voice = new Voice({ num_beats: 4, beat_value: 4 });
           voice.addTickables(
             noteArray.map((note, idx) => {
               return new StaveNote({ keys: [note], duration: "q" });
             })
           );
-          new Formatter().joinVoices([voice]).format([voice], 250);
+          new Formatter().joinVoices([voice]).format([voice], 150);
           voice.draw(context, stave);
-        } else {
-          let stave = createStave({
-            staveXposition: 50,
-            staveYposition: y,
-            staveWidth: 300,
-            context: context,
-          });
         }
-        y += 80;
+        let stave = createStave({
+          staveXposition: staveXPosition,
+          staveYposition: y,
+          staveWidth: globalStaveWidth,
+          context: context,
+        });
       }
 
       return () => {
@@ -69,10 +71,10 @@ const renderNotes = () => {
         }
       };
     }
-  }, [numStaves]);
+  }, []);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex">
       <div ref={notationRef} id="notation-root"></div>
     </div>
   );
