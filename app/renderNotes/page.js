@@ -1,6 +1,7 @@
 "use client";
 
 import Vex, { StaveNote } from "vexflow";
+import Score from "../test/page";
 import { useEffect, useRef } from "react";
 import AddNotes from "../components/addNotesToStaff";
 import createStave from "../components/createStave";
@@ -32,7 +33,7 @@ const renderNotes = () => {
         notationRef.current.id,
         Renderer.Backends.SVG
       );
-      renderer.resize(1200, 1200);
+      renderer.resize(1200, 900);
       const context = renderer.getContext();
 
       for (let i = 0; i < numStaves; i++) {
@@ -75,7 +76,15 @@ const renderNotes = () => {
 
   return (
     <div className="flex">
-      <div ref={notationRef} id="notation-root"></div>
+      {/* <div ref={notationRef} id="notation-root"></div> */}
+      <Score
+        staves={[
+          ["g3", "d4", "e4", "d4"],
+          ["a4", "d4", "e4", "d4"],
+          ["a4", "a4", "b4", "a4"],
+          ["d4", "e4", ["g3", 2]],
+        ]}
+      />
     </div>
   );
 };

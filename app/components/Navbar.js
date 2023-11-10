@@ -22,6 +22,9 @@ const Navbar = () => {
         <li className="p-4">
           <Link href="/addAccidentalsToNotes">Add Accidentals</Link>
         </li>
+        <li className="p-4">
+          <Link href="/test">GitHub Example</Link>
+        </li>
       </ul>
     </div>
   );
