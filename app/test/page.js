@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from "react";
-import VexFlow, { BarlineType } from "vexflow";
+import VexFlow, { Accidental, BarlineType } from "vexflow";
 
 const VF = VexFlow.Flow;
 const { Formatter, Renderer, Stave, StaveNote } = VF;
@@ -39,6 +39,14 @@ const Score = ({
     const staveWidth = (width - clefAndTimeWidth) / staves.length;
 
     let currX = 20;
+
+    const addAccidental = (note, accidental) => {
+      if (accidental) {
+        note.addModifier(0, new Accidental(accidental));
+      }
+      return note;
+    };
+
     staves.forEach((notes, i) => {
       if (i % maxStavesPerLine === 0 && i !== 0) {
         currX = 20; // Reset X to starting position
@@ -49,7 +57,8 @@ const Score = ({
         stave.setWidth(staveWidth + clefAndTimeWidth);
         clef && stave.addClef(clef);
         timeSignature && stave.addTimeSignature(timeSignature);
-      } else if (i === staves.length - 1) {
+      }
+      if (staves && i === staves.length - 1) {
         stave.setEndBarType(2);
       }
       currX += stave.getWidth();
@@ -69,7 +78,7 @@ const Score = ({
             : rest
         )
         .map(
-          ({ key, keys, duration = "q" }) =>
+          ({ key, keys, duration = "q", accidental }) =>
             new StaveNote({
               keys: key ? [key] : keys,
               duration: String(duration),

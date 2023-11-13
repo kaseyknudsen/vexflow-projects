@@ -12,68 +12,68 @@ import { Box, Container } from "@mui/system";
 const { Renderer, Voice, Formatter } = Vex.Flow;
 
 const renderNotes = () => {
-  const notationRef = useRef(null);
-  const noteArray = [
-    "e/4",
-    "f/4",
-    "g/4",
-    "a/4",
-    // "b/4",
-    // "c/5",
-    // "d/5",
-    // "e/5",
-  ];
+  // const notationRef = useRef(null);
+  // const noteArray = [
+  //   "e/4",
+  //   "f/4",
+  //   "g/4",
+  //   "a/4",
+  //   // "b/4",
+  //   // "c/5",
+  //   // "d/5",
+  //   // "e/5",
+  // ];
 
-  const numStaves = 2;
-  let y = 100;
-  let x = 50;
-  let globalStaveWidth = 250;
-  useEffect(() => {
-    if (notationRef.current) {
-      const renderer = new Renderer(
-        notationRef.current.id,
-        Renderer.Backends.SVG
-      );
-      renderer.resize(1200, 1200);
-      const context = renderer.getContext();
+  // const numStaves = 2;
+  // let y = 100;
+  // let x = 50;
+  // let globalStaveWidth = 250;
+  // useEffect(() => {
+  //   if (notationRef.current) {
+  //     const renderer = new Renderer(
+  //       notationRef.current.id,
+  //       Renderer.Backends.SVG
+  //     );
+  //     renderer.resize(1200, 1200);
+  //     const context = renderer.getContext();
 
-      for (let i = 0; i < numStaves; i++) {
-        let staveXPosition = i === 0 ? x : x + globalStaveWidth * i;
-        if (i === 0) {
-          let stave = createStave({
-            staveXposition: staveXPosition,
-            staveYposition: y,
-            staveWidth: globalStaveWidth,
-            context: context,
-          })
-            .addTimeSignature("4/4")
-            .addClef("treble")
-            .draw();
+  //     for (let i = 0; i < numStaves; i++) {
+  //       let staveXPosition = i === 0 ? x : x + globalStaveWidth * i;
+  //       if (i === 0) {
+  //         let stave = createStave({
+  //           staveXposition: staveXPosition,
+  //           staveYposition: y,
+  //           staveWidth: globalStaveWidth,
+  //           context: context,
+  //         })
+  //           .addTimeSignature("4/4")
+  //           .addClef("treble")
+  //           .draw();
 
-          const voice = new Voice({ num_beats: 4, beat_value: 4 });
-          voice.addTickables(
-            noteArray.map((note, idx) => {
-              return new StaveNote({ keys: [note], duration: "q" });
-            })
-          );
-          new Formatter().joinVoices([voice]).format([voice], 150);
-          voice.draw(context, stave);
-        }
-        let stave = createStave({
-          staveXposition: staveXPosition,
-          staveYposition: y,
-          staveWidth: globalStaveWidth,
-          context: context,
-        });
-      }
+  //         const voice = new Voice({ num_beats: 4, beat_value: 4 });
+  //         voice.addTickables(
+  //           noteArray.map((note, idx) => {
+  //             return new StaveNote({ keys: [note], duration: "q" });
+  //           })
+  //         );
+  //         new Formatter().joinVoices([voice]).format([voice], 150);
+  //         voice.draw(context, stave);
+  //       }
+  //       let stave = createStave({
+  //         staveXposition: staveXPosition,
+  //         staveYposition: y,
+  //         staveWidth: globalStaveWidth,
+  //         context: context,
+  //       });
+  //     }
 
-      return () => {
-        if (notationRef.current) {
-          notationRef.current.innerHTML = "";
-        }
-      };
-    }
-  }, []);
+  //     return () => {
+  //       if (notationRef.current) {
+  //         notationRef.current.innerHTML = "";
+  //       }
+  //     };
+  //   }
+  // }, []);
 
   return (
     <div>
