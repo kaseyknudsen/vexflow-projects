@@ -7,6 +7,7 @@ import AddNotes from "../components/addNotesToStaff";
 import createStave from "../components/createStave";
 import { noteArray } from "../components/noteData";
 import { addTickablesComponent } from "../components/addTickablesComponent";
+import { Box, Container } from "@mui/system";
 
 const { Renderer, Voice, Formatter } = Vex.Flow;
 
@@ -75,21 +76,23 @@ const renderNotes = () => {
   }, []);
 
   return (
-    <div className="flex">
+    <div>
       {/* <div ref={notationRef} id="notation-root"></div> */}
-      <Score
-        staves={[
-          ["g3", "d4", "e4", "d4"],
-          ["a4", "d4", "e4", "d4"],
-          ["a4", "a4", "b4", "a4"],
-          ["f4", "e4", ["g3", 2]],
-          ["d4", "e4", ["g3", 2]],
-          ["d4", "e4", ["g3", 2]],
-          ["d4", "e4", ["g3", 2]],
-          ["d4", "e4", ["g3", 2]],
-          ["d4", "e4", ["g3", 2]],
-        ]}
-      />
+      <Container maxWidth="lg">
+        <Score
+          staves={[
+            ["g3", "d4", "e4", "d4"],
+            ["a4", "d4", "e4", "d4"],
+            ["a4", "a4", "b4", "a4"],
+            ["f4", "e4", ["g3", 2]],
+            ["d4", "e4", ["g3", 2]],
+            ["d4", "e4", ["g3", 2]],
+            ["d4", "e4", ["g3", 2]],
+            ["d4", "e4", ["g3", 2]],
+            ["d4", "e4", ["g3", 2]],
+          ]}
+        />
+      </Container>
     </div>
   );
 };

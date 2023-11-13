@@ -5,8 +5,8 @@ import VexFlow, { BarlineType } from "vexflow";
 const VF = VexFlow.Flow;
 const { Formatter, Renderer, Stave, StaveNote } = VF;
 
-let clefWidth = 20;
-let timeWidth = 20;
+let clefWidth = 30;
+let timeWidth = 30;
 let maxStavesPerLine = 4;
 let lineSpacing = 125;
 
@@ -14,7 +14,7 @@ const Score = ({
   staves = [],
   clef = "treble",
   timeSignature = "4/4",
-  width = 1000,
+  width = 1200,
   height = 900,
 }) => {
   const container = useRef();
@@ -79,7 +79,6 @@ const Score = ({
         auto_beam: true,
       });
     });
-    
   }, [staves, width, height, timeSignature, clef, lineSpacing]);
 
   return <div ref={container} />;
