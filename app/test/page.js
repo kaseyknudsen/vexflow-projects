@@ -40,13 +40,6 @@ const Score = ({
 
     let currX = 20;
 
-    const addAccidental = (note, accidental) => {
-      if (accidental) {
-        note.addModifier(0, new Accidental(accidental));
-      }
-      return note;
-    };
-
     staves.forEach((notes, i) => {
       if (i % maxStavesPerLine === 0 && i !== 0) {
         currX = 20; // Reset X to starting position
@@ -69,16 +62,20 @@ const Score = ({
         .map((note) =>
           Array.isArray(note) ? { key: note[0], duration: note[1] } : note
         )
-        .map(({ key, ...rest }) =>
-          typeof key === "string"
-            ? {
-                key: key.includes("/") ? key : `${key[0]}/${key.slice(1)}`,
-                ...rest,
-              }
-            : rest
-        )
+        .map(({ key, ...rest }) => {
+          if (typeof key === "string") {
+            const noteParts = key.match(/([a-gA-G])(#|b)?(\d+)/);
+            if (noteParts) {
+              const [_, noteLetter, accidental, octave] = noteParts;
+              const formattedKey = `${noteLetter.toLowerCase()}${
+                accidental ? accidental : ""
+              }/${octave}`;
+              return { key: formattedKey, ...rest };
+            }
+          }
+        })
         .map(
-          ({ key, keys, duration = "q", accidental }) =>
+          ({ key, keys, duration = "q" }) =>
             new StaveNote({
               keys: key ? [key] : keys,
               duration: String(duration),
