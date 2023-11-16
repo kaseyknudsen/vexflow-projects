@@ -58,7 +58,9 @@ const Score = ({
       stave.setContext(context).draw();
 
       const processedNotes = notes
+      //this gives us an array [{key: "g3"},{key: "c4"}] etc...
         .map((note) => (typeof note === "string" ? { key: note } : note))
+        
         .map((note) =>
           Array.isArray(note) ? { key: note[0], duration: note[1] } : note
         )
