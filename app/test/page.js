@@ -58,9 +58,9 @@ const Score = ({
       stave.setContext(context).draw();
 
       const processedNotes = notes
-      //this gives us an array [{key: "g3"},{key: "c4"}] etc...
+        //this gives us an array [{key: "g3"},{key: "c4"}] etc...
         .map((note) => (typeof note === "string" ? { key: note } : note))
-        
+
         .map((note) =>
           Array.isArray(note) ? { key: note[0], duration: note[1] } : note
         )
@@ -72,17 +72,23 @@ const Score = ({
               const formattedKey = `${noteLetter.toLowerCase()}${
                 accidental ? accidental : ""
               }/${octave}`;
-              return { key: formattedKey, ...rest };
+              return { key: formattedKey, accidental, ...rest };
             }
           }
         })
-        .map(
-          ({ key, keys, duration = "q" }) =>
-            new StaveNote({
-              keys: key ? [key] : keys,
-              duration: String(duration),
-            })
-        );
+        .map(({ key, keys, accidental, duration = "q" }) => {
+          const staveNote = new StaveNote({
+            keys: key ? [key] : keys,
+            duration: String(duration),
+          });
+
+          if (accidental) {
+            staveNote.addModifier(new Accidental(accidental));
+          }
+
+          return staveNote;
+        });
+
       Formatter.FormatAndDraw(context, stave, processedNotes, {
         auto_beam: true,
       });

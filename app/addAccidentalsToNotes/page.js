@@ -12,7 +12,7 @@ const addAccidentalsToNotes = () => {
       <Container>
         <Score
           staves={[
-            ["g3", "d4", "e4", "d4"],
+            ["g#3", "d4", "e4", "d4"],
             ["a4", "d4", ["e4", 2]],
             ["a4", "d4", "e4", "d4"],
           
