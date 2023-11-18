@@ -1,5 +1,4 @@
 "use client";
-import addAccidental from "../components/addAccidental";
 import Vex from "vexflow";
 import React, { useRef, useEffect } from "react";
 import Score from "../test/page";
