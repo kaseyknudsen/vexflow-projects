@@ -66,7 +66,7 @@ const Score = ({
         )
         .map(({ key, ...rest }) => {
           if (typeof key === "string") {
-            const noteParts = key.match(/([a-gA-G])(#|b)?(\d+)/);
+            const noteParts = key.match(/([a-gA-G])(#|b|##|bb)?(\d+)/);
             if (noteParts) {
               const [_, noteLetter, accidental, octave] = noteParts;
               const formattedKey = `${noteLetter.toLowerCase()}${
