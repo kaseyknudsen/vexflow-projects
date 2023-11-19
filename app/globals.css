@@ -9,3 +9,11 @@ body {
 .custom-background-img {
   background-image: url("../public/staffPaperImg.jpg");
 }
+
+.button {
+  display: flex;
+  position: absolute;
+  margin-top: 50%;
+  margin-left: 25%;
+
+}

@@ -1,12 +1,15 @@
 "use client";
 import VexFlow, { Accidental, Renderer, StaveNote } from "vexflow";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import createStave from "../components/createStave";
-import { Button, Card, Box, Container } from "@mui/material";
+import noteData from "../components/noteData";
+import { Button } from "@mui/material";
 
 const page = () => {
   const rendererRef = useRef();
   const containerRef = useRef();
+
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     if (rendererRef.current == null) {
@@ -16,8 +19,6 @@ const page = () => {
       );
     }
     const renderer = rendererRef.current;
-    console.log(renderer);
-    console.log(containerRef.current);
     renderer.resize(800, 800);
     const context = renderer.getContext();
 
@@ -31,19 +32,31 @@ const page = () => {
       .addClef("treble");
     stave.draw();
 
+    // Function to determine the note from the Y-coordinate
+    const getNoteFromPosition = (y) => {
+      // Logic to convert y-coordinate to a musical note
+      // This depends on the specifics of your stave setup
+      // For example, you might check which line or space the y-coordinate corresponds to
+      // and return the appropriate note (like "C/4", "D/4", etc.)
+    };
+
     // Function to handle click events
     const handleCanvasClick = (event) => {
       const rect = containerRef.current.getBoundingClientRect();
-      console.log(rect);
-      console.log(event.clientX, event.clientY);
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
       const coordinates = { x: x, y: y };
-      console.log(coordinates);
-      return coordinates;
+      // Determine the note from the Y-coordinate
+      const note = getNoteFromPosition(y);
+      if (note) {
+        // Add the new note to the notes state
+        const newNote = new StaveNote({ keys: [note], duration: "q" });
+        setNotes((prevNotes) => [...prevNotes, newNote]);
 
-      // Here, you can add your logic to place a quarter note
-      // based on the x, y coordinates.
+        // Redraw the stave with the new notes
+        stave.draw();
+        notes.forEach((note) => note.setContext(context).draw());
+      }
     };
     // Add event listener for click events
     containerRef.current.addEventListener("click", handleCanvasClick);

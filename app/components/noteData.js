@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-export const noteArray = [
+const noteArray = [
   {
     keys: ["a#/3"],
     duration: "q",
@@ -183,3 +183,5 @@ export const noteArray = [
     audioPath: "../chr_scale/High-Gb.mp3",
   },
 ];
+
+export default noteArray;
