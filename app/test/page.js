@@ -78,7 +78,7 @@ const Score = ({
         })
         .map(({ key, keys, accidental, duration = "q" }) => {
           const staveNote = new StaveNote({
-            keys: key ? [key] : keys,
+            keys: key ? [key] : [keys],
             duration: String(duration),
           });
 

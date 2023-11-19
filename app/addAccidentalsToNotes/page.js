@@ -15,7 +15,7 @@ const addAccidentalsToNotes = () => {
             ["a4", "d4", ["e4", 2]],
             ["a4", "d4", "e4", "d4"],
           
-          ]} width={800}
+          ]} width={900}
         />
       </Container>
     </div>
