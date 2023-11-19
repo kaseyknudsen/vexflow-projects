@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from "react";
-import VexFlow, { Accidental, BarlineType } from "vexflow";
+import VexFlow, { Accidental } from "vexflow";
 
 const VF = VexFlow.Flow;
 const { Formatter, Renderer, Stave, StaveNote } = VF;
