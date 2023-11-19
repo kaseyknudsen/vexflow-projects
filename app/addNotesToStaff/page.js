@@ -2,7 +2,7 @@
 import VexFlow, { Accidental, Renderer, StaveNote } from "vexflow";
 import { useEffect, useRef } from "react";
 import createStave from "../components/createStave";
-import { Button, Card, Box } from "@mui/material";
+import { Button, Card, Box, Container } from "@mui/material";
 
 const page = () => {
   const rendererRef = useRef();
@@ -16,6 +16,8 @@ const page = () => {
       );
     }
     const renderer = rendererRef.current;
+    console.log(renderer);
+    console.log(containerRef.current);
     renderer.resize(800, 800);
     const context = renderer.getContext();
 
@@ -32,23 +34,30 @@ const page = () => {
     // Function to handle click events
     const handleCanvasClick = (event) => {
       const rect = containerRef.current.getBoundingClientRect();
+      console.log(rect);
+      console.log(event.clientX, event.clientY);
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
-      console.log(`x: ${x}, y: ${y}`);
-
-      // Cleanup
-      return () => {
-        containerRef.current.removeEventListener("click", handleCanvasClick);
-      };
+      const coordinates = { x: x, y: y };
+      console.log(coordinates);
+      return coordinates;
 
       // Here, you can add your logic to place a quarter note
       // based on the x, y coordinates.
     };
     // Add event listener for click events
     containerRef.current.addEventListener("click", handleCanvasClick);
+    // Cleanup
+    return () => {
+      containerRef.current.removeEventListener("click", handleCanvasClick);
+    };
   }, []);
 
-  return <div ref={containerRef}></div>;
+  return (
+    <div ref={containerRef}>
+      <div></div>
+    </div>
+  );
 };
 
 export default page;
